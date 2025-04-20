@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Entity
 @NoArgsConstructor
@@ -21,4 +23,7 @@ public class Person  {
     private String email;
     private String Role;
     private String password;
+//    @Temporal(TemporalType.TIMESTAMP)
+     @Column(nullable = false, updatable = false)
+     private Date date = new Date();
 }

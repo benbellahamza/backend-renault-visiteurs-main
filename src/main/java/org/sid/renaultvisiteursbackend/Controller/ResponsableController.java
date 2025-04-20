@@ -1,8 +1,10 @@
 package org.sid.renaultvisiteursbackend.Controller;
 
+import org.sid.renaultvisiteursbackend.Dto.ResponsableDTO;
 import org.sid.renaultvisiteursbackend.Export.ExcelExporter;
 import org.sid.renaultvisiteursbackend.Entity.Visiteur;
 import org.sid.renaultvisiteursbackend.Repository.VisiteurRepository;
+import org.sid.renaultvisiteursbackend.Service.ResponsableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,8 +21,25 @@ import java.util.List;
 @CrossOrigin("*")
 public class ResponsableController {
 
-    @Autowired
-    private VisiteurRepository visiteurRepository;
+    private final VisiteurRepository visiteurRepository;
+
+    private final ResponsableService service;
+
+    public ResponsableController(VisiteurRepository visiteurRepository, ResponsableService service) {
+        this.visiteurRepository = visiteurRepository;
+        this.service = service;
+    }
+
+
+    @PostMapping
+    public ResponsableDTO createResponsable(@RequestBody ResponsableDTO dto) {
+        return service.createResponsable(dto);
+    }
+
+    @GetMapping
+    public List<ResponsableDTO> getAllResponsables() {
+        return service.getAllResponsables();
+    }
 
     // ✅ 1. Liste paginée avec tri
     @GetMapping("/visiteurs")
